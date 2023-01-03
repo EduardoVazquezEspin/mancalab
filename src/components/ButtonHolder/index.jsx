@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import Select from 'react-select'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { resetBoard } from '../../resources/reducers/seeds'
 import { Frame, DieDisplay } from './style'
 import Button from '../Button'
+import { getCurrentPlayer } from '../../resources/helpers/redux.helpers'
+import { swapPlayers } from '../../resources/reducers/gameState'
 
 const ResetBoard = () => {
   const dispatch = useDispatch()
@@ -31,6 +33,17 @@ const SeasonDisplayer = () => {
   )
 }
 
+const SwapPlayersButton = () => {
+  const currentPlayer = useSelector(state => getCurrentPlayer(state))
+  const dispatch = useDispatch()
+  return (
+    <>
+      <Button text='Change Player' onClick={() => dispatch(swapPlayers())} />
+      <DieDisplay>{currentPlayer}</DieDisplay>
+    </>
+  )
+}
+
 const ButtonHolder = () => {
   return (
     <Frame>
@@ -38,6 +51,7 @@ const ButtonHolder = () => {
       <DieDisplayer numberOfSides={4} />
       <DieDisplayer numberOfSides={6} />
       <SeasonDisplayer />
+      <SwapPlayersButton />
     </Frame>
   )
 }

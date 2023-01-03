@@ -19,3 +19,7 @@ export const getSeedsFilter = (state, seedData) => {
     })
   })
 }
+
+export const getCurrentPlayer = (state) => {
+  return state.gameState.currentPlayer
+}
