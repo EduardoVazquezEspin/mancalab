@@ -6,7 +6,8 @@ import SeedDisplayer from '../SeedDisplayer'
 let seed
 
 const getRand = () => {
-  const x = Math.sin(seed++) * 10000
+  const x = Math.sin(seed) * 10000
+  seed += 100
   return x - Math.floor(x)
 }
 

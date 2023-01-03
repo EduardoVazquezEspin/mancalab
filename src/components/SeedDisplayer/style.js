@@ -3,8 +3,8 @@ import styled from '@emotion/styled'
 export const Seed = styled.div`
     position: absolute;
     background-color: ${props => props.color};
-    width: 8%;
-    padding-bottom: 8%;
+    width: 12%;
+    padding-bottom: 12%;
     top: ${props => props.top + '%'};
     left: ${props => props.left + '%'};
     z-index: 2;

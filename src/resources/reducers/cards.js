@@ -5,6 +5,15 @@ export const cardReducer = (state = [], action) => {
       result = [...state, action.payload]
       result[result.length - 1].id = result.length
       return result
+    case '@card/move_card':
+      return state.map(card => {
+        if (card.id !== action.payload.id) {
+          return structuredClone(card)
+        }
+        result = structuredClone(card)
+        result.location = action.payload.newLocation
+        return result
+      })
     default:
       return state
   }
@@ -19,6 +28,16 @@ export const createCard = (name, text, img) => {
       text,
       img,
       location: 'deck'
+    }
+  }
+}
+
+export const moveCard = (id, newLocation) => {
+  return {
+    type: '@card/move_card',
+    payload: {
+      id,
+      newLocation
     }
   }
 }

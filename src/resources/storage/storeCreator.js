@@ -11,9 +11,9 @@ const createSeeds = (store, numberOfSeeds, color) => {
 
 const createData = (store) => {
   store.dispatch(initGameState())
-  store.dispatch(createCard('test', 'this is a testing card see if it works', 'test'))
-  store.dispatch(createCard('Thief Instinct', '+2 at stealing', 'thief'))
-  store.dispatch(createCard('4 seasons', 'beethoven would be proud', 'seasons'))
+  store.dispatch(createCard('test', 'this is a testing card see if it works', 'test.png'))
+  store.dispatch(createCard('Thief Instinct', '+2 at stealing', 'thief.png'))
+  store.dispatch(createCard('4 seasons', 'beethoven would be proud', 'seasons.png'))
   createSeeds(store, 24, 'saddlebrown')
   createSeeds(store, 1, 'purple')
   createSeeds(store, 3, 'darkgreen')
