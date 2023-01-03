@@ -4,12 +4,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { resetBoard } from '../../resources/reducers/seeds'
 import { Frame, DieDisplay } from './style'
 import Button from '../Button'
-import { getCurrentPlayer } from '../../resources/helpers/redux.helpers'
-import { swapPlayers } from '../../resources/reducers/gameState'
+import { getCurrentPlayer, getNumberOfSeedsPerSocket } from '../../resources/helpers/redux.helpers'
+import { changeNumberOfSeeds, swapPlayers } from '../../resources/reducers/gameState'
 
 const ResetBoard = () => {
   const dispatch = useDispatch()
-  return <Button text='ResetBoard' onClick={() => dispatch(resetBoard(4))} />
+  const numberOfSeeds = useSelector(state => getNumberOfSeedsPerSocket(state))
+  return <Button text='ResetBoard' onClick={() => dispatch(resetBoard(numberOfSeeds))} />
 }
 
 const DieDisplayer = ({ numberOfSides }) => {
@@ -44,6 +45,14 @@ const SwapPlayersButton = () => {
   )
 }
 
+const ChangeSeeds = ({ value = 0 }) => {
+  const dispatch = useDispatch()
+  const ChangeNumberOfSeeds = () => {
+    dispatch(changeNumberOfSeeds(value))
+  }
+  return <Button onClick={ChangeNumberOfSeeds} text={(value > 0 ? '+' : '') + value} />
+}
+
 const ButtonHolder = () => {
   console.log(useSelector(state => state))
   return (
@@ -53,6 +62,8 @@ const ButtonHolder = () => {
       <DieDisplayer numberOfSides={6} />
       <SeasonDisplayer />
       <SwapPlayersButton />
+      <ChangeSeeds value={1} />
+      <ChangeSeeds value={-1} />
     </Frame>
   )
 }

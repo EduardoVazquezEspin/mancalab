@@ -28,3 +28,7 @@ export const getCurrentHand = (state) => {
   const currentPlayer = getCurrentPlayer(state)
   return state.seeds.filter(seed => seed.location.toString().includes(currentPlayer) && !seed.location.toString().includes('store'))
 }
+
+export const getNumberOfSeedsPerSocket = (state) => {
+  return state.gameState.numberOfSeeds
+}

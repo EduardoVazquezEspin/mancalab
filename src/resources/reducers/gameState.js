@@ -7,6 +7,16 @@ export const gameStateReducer = (state = {}, action) => {
       result = structuredClone(state)
       result.currentPlayer = state.currentPlayer === 'player-top' ? 'player-bottom' : 'player-top'
       return result
+    case '@gameState/change_number_of_seeds':
+      result = structuredClone(state)
+      result.numberOfSeeds += action.payload.value
+      if (result.numberOfSeeds < 1) {
+        result.numberOfSeeds = 1
+      }
+      if (result.numberOfSeeds > 5) {
+        result.numberOfSeeds = 5
+      }
+      return result
     default:
       return state
   }
@@ -16,7 +26,8 @@ export const initGameState = () => {
   return {
     type: '@gameState/init_game_state',
     payload: {
-      currentPlayer: 'player-top'
+      currentPlayer: 'player-top',
+      numberOfSeeds: 4
     }
   }
 }
@@ -25,5 +36,14 @@ export const swapPlayers = () => {
   return {
     type: '@gameState/swap_players',
     payload: {}
+  }
+}
+
+export const changeNumberOfSeeds = (value) => {
+  return {
+    type: '@gameState/change_number_of_seeds',
+    payload: {
+      value
+    }
   }
 }

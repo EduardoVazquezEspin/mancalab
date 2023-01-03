@@ -10,7 +10,7 @@ export const Frame = styled.div`
 export const Title = styled.div`
     width: inherit;
     font-weight: bold;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
 `
 
 export const Img = styled.img`
@@ -23,5 +23,5 @@ export const Text = styled.div`
     text-align: left;
     margin-left: 0.5rem;
     margin-right: 0.5rem;
-    font-size: 1rem;
+    font-size: 0.8rem;
 `

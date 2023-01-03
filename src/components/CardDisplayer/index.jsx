@@ -14,6 +14,8 @@ const CardDisplayer = ({
   const MoveToPlayer = () => {
     if (card.location === 'deck') {
       dispatch(moveCard(card.id, currentPlayer))
+    } else {
+      dispatch(moveCard(card.id, 'deck'))
     }
   }
   return (
