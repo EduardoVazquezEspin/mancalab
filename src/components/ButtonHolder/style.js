@@ -6,3 +6,10 @@ export const Frame = styled.div`
     display: flex;
     flex-wrap: wrap;
 `
+
+export const DieDisplay = styled.p`
+    width: fit-content; 
+    height: inherit; 
+    margin: 0;
+    vertical-align: middle;
+`

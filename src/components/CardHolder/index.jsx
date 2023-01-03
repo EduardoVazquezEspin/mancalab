@@ -8,10 +8,6 @@ const CardHolder = () => {
   return (
     <Frame>
       {deckCards.map((card, it) => <CardDisplayer key={it} id={card.id} />)}
-      <CardDisplayer id={1} />
-      <CardDisplayer id={1} />
-      <CardDisplayer id={1} />
-      <CardDisplayer id={1} />
     </Frame>
   )
 }
