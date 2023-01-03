@@ -4,6 +4,14 @@ export const getCardById = (state, id) => {
   return result[0]
 }
 
+export const getCardsFilter = (state, cardData) => {
+  return state.cards.filter(card => {
+    return Object.keys(cardData).every(index => {
+      return card[index] === cardData[index]
+    })
+  })
+}
+
 export const getSeedsFilter = (state, seedData) => {
   return state.seeds.filter(seed => {
     return Object.keys(seedData).every(index => {

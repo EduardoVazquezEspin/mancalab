@@ -17,7 +17,8 @@ export const createCard = (name, text, img) => {
       id: 0,
       name,
       text,
-      img
+      img,
+      location: 'deck'
     }
   }
 }
