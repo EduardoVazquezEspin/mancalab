@@ -1,12 +1,12 @@
-export const gameStateReducer = (state = [], action) => {
+export const gameStateReducer = (state = {}, action) => {
   let result = {}
   switch (action.type) {
     case '@gameState/init_game_state':
-      return [action.payload]
+      return action.payload
     case '@gameState/swap_players':
-      result = structuredClone(state[0])
-      result.currentPlayer = state[0].currentPlayer === 'player-top' ? 'player-bottom' : 'player-top'
-      return [result]
+      result = structuredClone(state)
+      result.currentPlayer = state.currentPlayer === 'player-top' ? 'player-bottom' : 'player-top'
+      return result
     default:
       return state
   }
