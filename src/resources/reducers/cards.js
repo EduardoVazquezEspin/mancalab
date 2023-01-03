@@ -8,9 +8,9 @@ export const cardReducer = (state = [], action) => {
     case '@card/move_card':
       return state.map(card => {
         if (card.id !== action.payload.id) {
-          return structuredClone(card)
+          return card
         }
-        result = structuredClone(card)
+        result = card
         result.location = action.payload.newLocation
         return result
       })

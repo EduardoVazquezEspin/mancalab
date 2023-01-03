@@ -5,6 +5,15 @@ export const seedReducer = (state = [], action) => {
       result = [...state, action.payload]
       result[result.length - 1].id = result.length
       return result
+    case '@seed/move_seed':
+      return state.map(seed => {
+        if (seed.id !== action.payload.id) {
+          return seed
+        }
+        result = seed
+        result.location = action.payload.newLocation
+        return result
+      })
     case '@seed/reset_board':
       result = state.map(seed => {
         const newSeed = structuredClone(seed)
@@ -33,6 +42,16 @@ export const createSeed = ({ color, location = 'bag' }) => {
       id: 0,
       color,
       location
+    }
+  }
+}
+
+export const moveSeed = (id, newLocation) => {
+  return {
+    type: '@seed/move_seed',
+    payload: {
+      id,
+      newLocation
     }
   }
 }
