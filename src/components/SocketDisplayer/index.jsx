@@ -55,7 +55,7 @@ const SocketDisplayer = ({ location, width = '12.5%', height = '50%', posX = 0, 
       <SeedContainer>
         {seeds.map((seed, it) => {
           const randomPos = getRandomPosition(seed.id + 60 * location.toString().length)
-          return <SeedDisplayer key={it} color={seed.color} left={randomPos.left} top={randomPos.top} />
+          return <SeedDisplayer key={it} color={seed.color} left={randomPos.left} top={randomPos.top} seed={seed} />
         })}
       </SeedContainer>
     </Socket>
