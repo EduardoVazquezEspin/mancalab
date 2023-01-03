@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 
 export const Frame = styled.div`
-    width: 5rem;
+    width: 7rem;
     height 6rem;
     border: 2px solid black;
     text-align: center;
@@ -10,11 +10,12 @@ export const Frame = styled.div`
 export const Title = styled.div`
     width: inherit;
     font-weight: bold;
+    font-size: 2rem;
 `
 
 export const Img = styled.img`
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 5rem;
+    height: 5rem;
     margin: auto;
 `
 
@@ -22,5 +23,5 @@ export const Text = styled.div`
     text-align: left;
     margin-left: 0.5rem;
     margin-right: 0.5rem;
-    font-size: 0.5rem;
+    font-size: 1rem;
 `
