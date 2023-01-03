@@ -11,6 +11,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
     <Provider store={store}>
+      {console.log(store.getState())}
       <Mancalapp />
     </Provider>
   </React.StrictMode>

@@ -21,5 +21,5 @@ export const getSeedsFilter = (state, seedData) => {
 }
 
 export const getCurrentPlayer = (state) => {
-  return state.gameState.currentPlayer
+  return state.gameState[0].currentPlayer
 }

@@ -45,6 +45,7 @@ const SwapPlayersButton = () => {
 }
 
 const ButtonHolder = () => {
+  console.log(useSelector(state => state))
   return (
     <Frame>
       <ResetBoard />
