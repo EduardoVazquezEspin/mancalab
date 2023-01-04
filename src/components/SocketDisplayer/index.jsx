@@ -1,8 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { getCurrentHand, getCurrentPlayer, getSeedsFilter } from '../../resources/helpers/redux.helpers'
+import { getCurrentHand, getCurrentPlayer, getCursorMode, getSeedsFilter } from '../../resources/helpers/redux.helpers'
 import { Socket, SeedContainer } from './style'
 import SeedDisplayer from '../SeedDisplayer'
-import { moveSeed } from '../../resources/reducers/seeds'
+import { moveSeed, moveSeedFromBag } from '../../resources/reducers/seeds'
 
 const isInt = (cadena) => {
   return parseInt(Number(cadena)) === cadena
@@ -33,21 +33,26 @@ const SocketDisplayer = ({ location, width = '12.5%', height = '50%', posX = 0, 
   const first = currentHand.filter(seed => seed.location.includes('first'))
   const second = currentHand.filter(seed => seed.location.includes('second'))
   const last = currentHand.filter(seed => seed.location.includes('last'))
+  const cursorMode = useSelector(state => getCursorMode(state))
   const dispatch = useDispatch()
   const MoveSeeds = () => {
-    if (currentHand.length === 0 && isInt(location)) {
-      seeds.forEach(seed => dispatch(moveSeed(seed.id, currentPlayer + '-second')))
-    } else if (isInt(location) || location.toString().includes('store')) {
-      if (first.length !== 0) {
-        const seedToMove = first[Math.floor(Math.random() * first.length)]
-        dispatch(moveSeed(seedToMove.id, location))
-      } else if (second.length !== 0) {
-        const seedToMove = second[Math.floor(Math.random() * second.length)]
-        dispatch(moveSeed(seedToMove.id, location))
-      } else {
-        const seedToMove = last[Math.floor(Math.random() * last.length)]
-        dispatch(moveSeed(seedToMove.id, location))
+    if (cursorMode === 'Select') {
+      if (currentHand.length === 0 && isInt(location)) {
+        seeds.forEach(seed => dispatch(moveSeed(seed.id, currentPlayer + '-second')))
+      } else if (isInt(location) || location.toString().includes('store')) {
+        if (first.length !== 0) {
+          const seedToMove = first[Math.floor(Math.random() * first.length)]
+          dispatch(moveSeed(seedToMove.id, location))
+        } else if (second.length !== 0) {
+          const seedToMove = second[Math.floor(Math.random() * second.length)]
+          dispatch(moveSeed(seedToMove.id, location))
+        } else {
+          const seedToMove = last[Math.floor(Math.random() * last.length)]
+          dispatch(moveSeed(seedToMove.id, location))
+        }
       }
+    } else if (cursorMode === 'Add Seed') {
+      dispatch(moveSeedFromBag(location))
     }
   }
   return (

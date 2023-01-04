@@ -17,6 +17,10 @@ export const gameStateReducer = (state = {}, action) => {
         result.numberOfSeeds = 5
       }
       return result
+    case '@gameState/change_cursor_mode':
+      result = structuredClone(state)
+      result.cursorMode = action.payload.newMode
+      return result
     default:
       return state
   }
@@ -27,7 +31,8 @@ export const initGameState = () => {
     type: '@gameState/init_game_state',
     payload: {
       currentPlayer: 'player-top',
-      numberOfSeeds: 4
+      numberOfSeeds: 4,
+      cursorMode: 'Select'
     }
   }
 }
@@ -44,6 +49,15 @@ export const changeNumberOfSeeds = (value) => {
     type: '@gameState/change_number_of_seeds',
     payload: {
       value
+    }
+  }
+}
+
+export const changeCursorMode = (newMode) => {
+  return {
+    type: '@gameState/change_cursor_mode',
+    payload: {
+      newMode
     }
   }
 }

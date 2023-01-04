@@ -30,6 +30,18 @@ export const seedReducer = (state = [], action) => {
         }
       }
       return result
+    case '@seed/move_from_bag':
+      result = state.filter(seed => seed.location === 'bag')
+      if (result.length === 0) {
+        return state.map(seed => seed)
+      }
+      result = result[Math.floor(Math.random() * result.length)]
+      return state.map(seed => {
+        if (seed.id === result.id) {
+          seed.location = action.payload.location
+        }
+        return seed
+      })
     default:
       return state
   }
@@ -61,6 +73,15 @@ export const resetBoard = (seedsPerPocket = 4) => {
     type: '@seed/reset_board',
     payload: {
       seedsPerPocket
+    }
+  }
+}
+
+export const moveSeedFromBag = (location) => {
+  return {
+    type: '@seed/move_from_bag',
+    payload: {
+      location
     }
   }
 }

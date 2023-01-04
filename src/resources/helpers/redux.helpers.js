@@ -32,3 +32,7 @@ export const getCurrentHand = (state) => {
 export const getNumberOfSeedsPerSocket = (state) => {
   return state.gameState.numberOfSeeds
 }
+
+export const getCursorMode = (state) => {
+  return state.gameState.cursorMode
+}

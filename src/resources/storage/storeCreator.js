@@ -33,7 +33,7 @@ const createData = (store) => {
   store.dispatch(createCard('Spinda Seed', 'When scored, swap pockets', 'red.png'))
   store.dispatch(createCard('Parental Seed', 'Must be first. Can move ALL seeds, but no score', 'pink.png'))
   store.dispatch(createCard('Moonwalk Seed', 'Must be first. Can move backwards once', 'blue.png'))
-  createSeeds(store, 31, 'saddlebrown')
+  createSeeds(store, 33, 'saddlebrown')
   createSeeds(store, 1, 'purple')
   createSeeds(store, 3, 'darkgreen')
   createSeeds(store, 5, 'turquoise')

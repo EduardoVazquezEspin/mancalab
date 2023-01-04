@@ -5,7 +5,7 @@ import { resetBoard } from '../../resources/reducers/seeds'
 import { Frame, DieDisplay } from './style'
 import Button from '../Button'
 import { getCurrentPlayer, getNumberOfSeedsPerSocket } from '../../resources/helpers/redux.helpers'
-import { changeNumberOfSeeds, swapPlayers } from '../../resources/reducers/gameState'
+import { changeNumberOfSeeds, swapPlayers, changeCursorMode } from '../../resources/reducers/gameState'
 
 const ResetBoard = () => {
   const dispatch = useDispatch()
@@ -22,6 +22,7 @@ const DieDisplayer = ({ numberOfSides }) => {
     </>
   )
 }
+
 const SeasonDisplayer = () => {
   const options = [
     { value: 0, label: 'Winter' },
@@ -50,7 +51,30 @@ const ChangeSeeds = ({ value = 0 }) => {
   const ChangeNumberOfSeeds = () => {
     dispatch(changeNumberOfSeeds(value))
   }
-  return <Button onClick={ChangeNumberOfSeeds} text={(value > 0 ? '+' : '') + value} />
+  return <Button onClick={ChangeNumberOfSeeds} text={(value > 0 ? '+' : '') + value + ' seed ALL'} />
+}
+
+const CursorOptions = () => {
+  const options = [
+    { value: 0, label: 'Select' },
+    { value: 1, label: 'Add Seed' },
+    { value: 2, label: 'Remove Seed' },
+    { value: 3, label: 'Bridge' },
+    { value: 4, label: 'Socket State' }
+  ]
+  const dispatch = useDispatch()
+  const updateCursorMode = (newMode) => {
+    dispatch(changeCursorMode(newMode.label))
+  }
+  return (
+    <Select
+      options={options}
+      defaultValue={0}
+      placeholder='Cursor'
+      components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }}
+      onChange={(choice) => updateCursorMode(choice)}
+    />
+  )
 }
 
 const ButtonHolder = () => {
@@ -64,6 +88,7 @@ const ButtonHolder = () => {
       <SwapPlayersButton />
       <ChangeSeeds value={1} />
       <ChangeSeeds value={-1} />
+      <CursorOptions />
     </Frame>
   )
 }
