@@ -42,6 +42,14 @@ export const seedReducer = (state = [], action) => {
         }
         return seed
       })
+    case '@seed/flip_the_board':
+      return state.map(seed => {
+        if (parseInt(Number(seed.location)) !== seed.location) {
+          return seed
+        }
+        seed.location = 11 - seed.location
+        return seed
+      })
     default:
       return state
   }
@@ -83,5 +91,12 @@ export const moveSeedFromBag = (location) => {
     payload: {
       location
     }
+  }
+}
+
+export const flipTheBoard = () => {
+  return {
+    type: '@seed/flip_the_board',
+    payload: {}
   }
 }

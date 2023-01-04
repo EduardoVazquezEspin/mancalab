@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Select from 'react-select'
 import { useDispatch, useSelector } from 'react-redux'
-import { resetBoard } from '../../resources/reducers/seeds'
+import { resetBoard, flipTheBoard } from '../../resources/reducers/seeds'
 import { Frame, DieDisplay } from './style'
 import Button from '../Button'
 import { getCurrentPlayer, getNumberOfSeedsPerSocket } from '../../resources/helpers/redux.helpers'
@@ -60,7 +60,7 @@ const CursorOptions = () => {
     { value: 1, label: 'Add Seed' },
     { value: 2, label: 'Remove Seed' },
     { value: 3, label: 'Bridge' },
-    { value: 4, label: 'Socket State' }
+    { value: 4, label: 'Pocket State' }
   ]
   const dispatch = useDispatch()
   const updateCursorMode = (newMode) => {
@@ -77,6 +77,16 @@ const CursorOptions = () => {
   )
 }
 
+const FlipBoard = () => {
+  const dispatch = useDispatch()
+  return (
+    <Button
+      text='Flip the Board'
+      onClick={() => dispatch(flipTheBoard())}
+    />
+  )
+}
+
 const ButtonHolder = () => {
   console.log(useSelector(state => state))
   return (
@@ -89,6 +99,7 @@ const ButtonHolder = () => {
       <ChangeSeeds value={1} />
       <ChangeSeeds value={-1} />
       <CursorOptions />
+      <FlipBoard />
     </Frame>
   )
 }
