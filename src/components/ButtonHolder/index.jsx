@@ -2,10 +2,11 @@ import { useState } from 'react'
 import Select from 'react-select'
 import { useDispatch, useSelector } from 'react-redux'
 import { resetBoard, flipTheBoard } from '../../resources/reducers/seeds'
+import { moveCard } from '../../resources/reducers/cards'
+import { changeNumberOfSeeds, swapPlayers, changeCursorMode } from '../../resources/reducers/gameState'
+import { getCardsFilter, getCurrentPlayer, getNumberOfSeedsPerSocket } from '../../resources/helpers/redux.helpers'
 import { Frame, DieDisplay } from './style'
 import Button from '../Button'
-import { getCurrentPlayer, getNumberOfSeedsPerSocket } from '../../resources/helpers/redux.helpers'
-import { changeNumberOfSeeds, swapPlayers, changeCursorMode } from '../../resources/reducers/gameState'
 
 const ResetBoard = () => {
   const dispatch = useDispatch()
@@ -48,10 +49,23 @@ const SwapPlayersButton = () => {
 
 const ChangeSeeds = ({ value = 0 }) => {
   const dispatch = useDispatch()
-  const ChangeNumberOfSeeds = () => {
+  const changeNumOfSeeds = () => {
     dispatch(changeNumberOfSeeds(value))
   }
-  return <Button onClick={ChangeNumberOfSeeds} text={(value > 0 ? '+' : '') + value + ' seed ALL'} />
+  return <Button onClick={changeNumOfSeeds} text={(value > 0 ? '+' : '') + value + ' seed ALL'} />
+}
+
+const GetRandomCard = () => {
+  const dispatch = useDispatch()
+  const currentPlayer = useSelector(state => getCurrentPlayer(state))
+  const cards = useSelector(state => getCardsFilter(state, { location: 'deck' }))
+  const getRandomCard = () => {
+    if (cards.length !== 0) {
+      const rndCard = cards[Math.floor(Math.random() * cards.length)]
+      dispatch(moveCard(rndCard.id, currentPlayer))
+    }
+  }
+  return <Button onClick={getRandomCard} text='Get Rnd Card' />
 }
 
 const CursorOptions = () => {
@@ -100,6 +114,7 @@ const ButtonHolder = () => {
       <ChangeSeeds value={-1} />
       <CursorOptions />
       <FlipBoard />
+      <GetRandomCard />
     </Frame>
   )
 }
