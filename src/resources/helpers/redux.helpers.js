@@ -36,3 +36,7 @@ export const getNumberOfSeedsPerSocket = (state) => {
 export const getCursorMode = (state) => {
   return state.gameState.cursorMode
 }
+
+export const getBridge = (state) => {
+  return state.gameState.bridge
+}

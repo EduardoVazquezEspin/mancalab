@@ -21,6 +21,10 @@ export const gameStateReducer = (state = {}, action) => {
       result = structuredClone(state)
       result.cursorMode = action.payload.newMode
       return result
+    case '@gameState/set_bridge':
+      result = structuredClone(state)
+      result.bridge = action.payload.position
+      return result
     default:
       return state
   }
@@ -32,7 +36,8 @@ export const initGameState = () => {
     payload: {
       currentPlayer: 'player-top',
       numberOfSeeds: 4,
-      cursorMode: 'Select'
+      cursorMode: 'Select',
+      bridge: -1
     }
   }
 }
@@ -58,6 +63,15 @@ export const changeCursorMode = (newMode) => {
     type: '@gameState/change_cursor_mode',
     payload: {
       newMode
+    }
+  }
+}
+
+export const setBridge = (position) => {
+  return {
+    type: '@gameState/set_bridge',
+    payload: {
+      position
     }
   }
 }

@@ -1,9 +1,10 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { getCurrentHand, getCurrentPlayer, getCursorMode, getSeedsFilter } from '../../resources/helpers/redux.helpers'
+import { getBridge, getCurrentHand, getCurrentPlayer, getCursorMode, getSeedsFilter } from '../../resources/helpers/redux.helpers'
 import { Socket, SeedContainer } from './style'
 import SeedDisplayer from '../SeedDisplayer'
 import { moveSeed, moveSeedFromBag } from '../../resources/reducers/seeds'
 import { useState } from 'react'
+import { setBridge } from '../../resources/reducers/gameState'
 
 const isInt = (cadena) => {
   return parseInt(Number(cadena)) === cadena
@@ -36,6 +37,7 @@ const SocketDisplayer = ({ location, width = '12.5%', height = '50%', posX = 0, 
   const second = currentHand.filter(seed => seed.location.includes('second'))
   const last = currentHand.filter(seed => seed.location.includes('last'))
   const cursorMode = useSelector(state => getCursorMode(state))
+  const bridge = useSelector(state => getBridge(state))
   const dispatch = useDispatch()
   const MoveSeeds = () => {
     if (cursorMode === 'Select') {
@@ -59,6 +61,8 @@ const SocketDisplayer = ({ location, width = '12.5%', height = '50%', posX = 0, 
       const socketStates = ['normal', 'forbidden', 'doomed', 'magic', 'confused']
       const index = socketStates.indexOf(backgroundState)
       setBackgroundState(socketStates[(index + 1) % socketStates.length])
+    } else if (cursorMode === 'Bridge' && isInt(location)) {
+      dispatch(setBridge((location % 6 === bridge ? -1 : location % 6)))
     }
   }
   return (
