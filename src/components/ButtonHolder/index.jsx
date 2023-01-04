@@ -73,8 +73,9 @@ const CursorOptions = () => {
     { value: 0, label: 'Select' },
     { value: 1, label: 'Add Seed' },
     { value: 2, label: 'Remove Seed' },
-    { value: 3, label: 'Bridge' },
-    { value: 4, label: 'Pocket State' }
+    { value: 3, label: 'Empty Pocket' },
+    { value: 4, label: 'Bridge' },
+    { value: 5, label: 'Pocket State' }
   ]
   const dispatch = useDispatch()
   const updateCursorMode = (newMode) => {

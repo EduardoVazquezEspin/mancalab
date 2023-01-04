@@ -1,10 +1,11 @@
+import { useState } from 'react'
+import { Tooltip } from '@mui/material'
 import { useSelector, useDispatch } from 'react-redux'
 import { getBridge, getCurrentHand, getCurrentPlayer, getCursorMode, getSeedsFilter } from '../../resources/helpers/redux.helpers'
+import { moveSeed, moveSeedFromBag } from '../../resources/reducers/seeds'
+import { setBridge } from '../../resources/reducers/gameState'
 import { Socket, SeedContainer } from './style'
 import SeedDisplayer from '../SeedDisplayer'
-import { moveSeed, moveSeedFromBag } from '../../resources/reducers/seeds'
-import { useState } from 'react'
-import { setBridge } from '../../resources/reducers/gameState'
 
 const isInt = (cadena) => {
   return parseInt(Number(cadena)) === cadena
@@ -39,6 +40,7 @@ const SocketDisplayer = ({ location, width = '12.5%', height = '50%', posX = 0, 
   const cursorMode = useSelector(state => getCursorMode(state))
   const bridge = useSelector(state => getBridge(state))
   const dispatch = useDispatch()
+
   const MoveSeeds = () => {
     if (cursorMode === 'Select') {
       if (currentHand.length === 0 && isInt(location)) {
@@ -63,17 +65,32 @@ const SocketDisplayer = ({ location, width = '12.5%', height = '50%', posX = 0, 
       setBackgroundState(socketStates[(index + 1) % socketStates.length])
     } else if (cursorMode === 'Bridge' && isInt(location)) {
       dispatch(setBridge((location % 6 === bridge ? -1 : location % 6)))
+    } else if (cursorMode === 'Empty Pocket') {
+      seeds.forEach(seed => dispatch(moveSeed(seed.id, 'bag')))
     }
   }
+
+  const getSeedsDescription = () => {
+    const colors = {}
+    seeds.forEach(seed => {
+      if (!colors[seed.color]) {
+        colors[seed.color] = 0
+      }
+      colors[seed.color] += 1
+    })
+    return Object.keys(colors).map((color, it) => <p key={it}>{color + ' x' + colors[color]}</p>)
+  }
   return (
-    <Socket width={width} height={height} posX={posX} posY={posY} onClick={() => MoveSeeds()} backgroundState={backgroundState}>
-      <SeedContainer>
-        {seeds.map((seed, it) => {
-          const randomPos = getRandomPosition(seed.id + (isInt(location) ? 67 * location : 113 * location.toString().length))
-          return <SeedDisplayer key={it} color={seed.color} left={randomPos.left} top={randomPos.top} seed={seed} />
-        })}
-      </SeedContainer>
-    </Socket>
+    <Tooltip title={getSeedsDescription()}>
+      <Socket width={width} height={height} posX={posX} posY={posY} onClick={() => MoveSeeds()} backgroundState={backgroundState}>
+        <SeedContainer>
+          {seeds.map((seed, it) => {
+            const randomPos = getRandomPosition(seed.id + (isInt(location) ? 67 * location : 113 * location.toString().length))
+            return <SeedDisplayer key={it} color={seed.color} left={randomPos.left} top={randomPos.top} seed={seed} />
+          })}
+        </SeedContainer>
+      </Socket>
+    </Tooltip>
   )
 }
 
