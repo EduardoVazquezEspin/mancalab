@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/mancalab/static/css/main.4152c3d3.css",
-    "main.js": "/mancalab/static/js/main.afde4d03.js",
+    "main.js": "/mancalab/static/js/main.2e50f369.js",
     "index.html": "/mancalab/index.html",
     "main.4152c3d3.css.map": "/mancalab/static/css/main.4152c3d3.css.map",
-    "main.afde4d03.js.map": "/mancalab/static/js/main.afde4d03.js.map"
+    "main.2e50f369.js.map": "/mancalab/static/js/main.2e50f369.js.map"
   },
   "entrypoints": [
     "static/css/main.4152c3d3.css",
-    "static/js/main.afde4d03.js"
+    "static/js/main.2e50f369.js"
   ]
 }
