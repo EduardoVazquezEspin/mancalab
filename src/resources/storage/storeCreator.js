@@ -25,6 +25,7 @@ const createData = (store) => {
   store.dispatch(createCard('Time of Harvest', 'when landing on own non-empty socket, sow again', 'harvest.jpg'))
   store.dispatch(createCard('Time of RNG', '1D6 lands on empty, lose turn', 'random.jpg'))
   store.dispatch(createCard('Time of Ruin', 'first socket sowed becomes dead', 'desert.jpeg'))
+  store.dispatch(createCard('sneaky sneaky', 'you may steal from the opponents side', 'sneaky.png'))
   store.dispatch(createCard('Poisoned Seed', 'Must be last. Erase all seeds in socket', 'purple.png'))
   store.dispatch(createCard('Rotten Seed', 'Counts as -3 points', 'green.png'))
   store.dispatch(createCard('Wind Seed', 'Must be last. Swap seeds with final pocket', 'turquoise.png'))
